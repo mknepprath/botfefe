@@ -100,6 +100,11 @@ if __name__ == '__main__':
 
         tweet_words = words[:tweet_length]
 
+        word = list(tweet_words[tweet_length - 1])
+        shuffle(word)
+        tweet_words[tweet_length - 1] = ''.join(word)
+
+
         tweet = ' '.join(tweet_words)
 
         print source_tweet
