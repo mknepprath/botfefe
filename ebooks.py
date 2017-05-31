@@ -88,19 +88,31 @@ if __name__ == '__main__':
             print 'Error fetching tweets from Twitter. Aborting.'
             sys.exit()
 
-        ebook_tweet = random.choice(source_tweets)
+        source_tweet = random.choice(source_tweets)
+        words = source_tweet.split()
+
+        tweet_length = 0
+
+        if len(words) < 3:
+            tweet_length = random.randint(3, len(words))
+        else:
+            tweet_length = len(words)
+
+        tweet_words = words[:tweet_length]
+
+        tweet = tweet_words.join()
 
         rando = random.randint(0, 10)
         if rando == 1:
-            ebook_tweet = ebook_tweet.upper()
+            tweet = tweet.upper()
 
-        if ebook_tweet != None and len(ebook_tweet) < 140:
+        if tweet != None and len(tweet) < 140:
             if not DEBUG:
-                twitter.tweet(ebook_tweet)
-            print 'Tweeted \'' + ebook_tweet + '\''
-        elif ebook_tweet is None:
+                twitter.tweet(tweet)
+            print 'Tweeted \'' + tweet + '\''
+        elif tweet is None:
             print 'Tweet is empty, sorry.'
         else:
-            print 'TOO LONG: ' + ebook_tweet
+            print 'TOO LONG: ' + tweet
     else:
         print str(guess) + ' No, sorry, not this time.' #message if the random number fails.
