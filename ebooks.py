@@ -102,6 +102,10 @@ if __name__ == '__main__':
 
         tweet = ' '.join(tweet_words)
 
+        print source_tweet
+        print tweet_length
+        print tweet
+
         rando = random.randint(0, 10)
         if rando == 1:
             tweet = tweet.upper()
