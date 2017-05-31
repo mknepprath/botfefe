@@ -100,7 +100,7 @@ if __name__ == '__main__':
 
         tweet_words = words[:tweet_length]
 
-        tweet = tweet_words.join()
+        tweet = ' '.join(tweet_words)
 
         rando = random.randint(0, 10)
         if rando == 1:
