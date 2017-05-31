@@ -21,9 +21,6 @@ class TwitterAPI:
     def tweet(self, message):
         self.api.update_status(status=message)
 
-    def reply(self, message, tweet_id):
-        self.api.update_status(status=message, in_reply_to_status_id=tweet_id)
-
 def entity(text):
     if text[:2] == '&#':
         try:
@@ -73,21 +70,6 @@ def grab_tweets(twitter, max_id=None):
                 source_tweets.append(tweet.text)
     return source_tweets, max_id
 
-def grab_replies(twitter, max_id=None):
-    source_replies = []
-    user_replies = twitter.api.user_timeline(
-        screen_name=user,
-        count=200,
-        max_id=max_id
-    )
-    max_id = user_replies[len(user_replies)-1].id-1
-    for tweet in user_replies:
-        if tweet.text[0][0] == '@':
-            tweet.text = filter_tweet(tweet)
-            if len(tweet.text) != 0:
-                source_replies.append(tweet.text)
-    return source_replies, max_id
-
 if __name__ == '__main__':
     twitter = TwitterAPI()
     if not DEBUG:
@@ -98,18 +80,18 @@ if __name__ == '__main__':
     if guess == 0:
         #gets tweets
         source_tweets = []
-        for handle in SOURCE_ACCOUNTS:
-            user = handle
-            max_id = None
-            for x in range(17)[1:]:
-                source_tweets_iter, max_id = grab_tweets(twitter, max_id)
-                source_tweets += source_tweets_iter
-            print '{0} tweets found in {1}'.format(len(source_tweets), handle)
-            if len(source_tweets) == 0:
-                print 'Error fetching tweets from Twitter. Aborting.'
-                sys.exit()
+        user = SOURCE_ACCOUNT
+        max_id = None
+        for x in range(17)[1:]:
+            source_tweets_iter, max_id = grab_tweets(twitter, max_id)
+            source_tweets += source_tweets_iter
+        print '{0} tweets found in {1}'.format(len(source_tweets), SOURCE_ACCOUNT)
+        if len(source_tweets) == 0:
+            print 'Error fetching tweets from Twitter. Aborting.'
+            sys.exit()
         mine = markov.MarkovChainer(ORDER)
         for tweet in source_tweets:
+            print tweet
             if re.search('([\.\!\?\"\']$)', tweet):
                 pass
             else:
@@ -119,26 +101,9 @@ if __name__ == '__main__':
         for x in range(0, 10):
             ebook_tweet = mine.generate_sentence()
 
-        #randomly drop the last word, as Horse_ebooks appears to do.
-        if random.randint(0, 4) == 0 and re.search(r'(in|to|from|for|with|by|our|of|your|around|under|beyond)\s\w+$', ebook_tweet) != None:
-            print 'Losing last word randomly'
-            ebook_tweet = re.sub(r'\s\w+.$', '', ebook_tweet)
-            print ebook_tweet
-
-        #if a tweet is very short, this will randomly add a second sentence to it.
-        if ebook_tweet != None and len(ebook_tweet) < 40:
-            rando = random.randint(0, 10)
-            if rando == 0 or rando == 7:
-                print 'Short tweet. Adding another sentence randomly'
-                newer_tweet = mine.generate_sentence()
-                if newer_tweet != None:
-                    ebook_tweet += ' ' + mine.generate_sentence()
-                else:
-                    ebook_tweet = ebook_tweet
-            elif rando == 1:
-                #say something crazy/prophetic in all caps
-                print 'ALL THE THINGS'
-                ebook_tweet = ebook_tweet.upper()
+        rando = random.randint(0, 10)
+        if rando == 1:
+            ebook_tweet = ebook_tweet.upper()
 
         #throw out tweets that match anything from the source account.
         if ebook_tweet != None and len(ebook_tweet) < 110:
