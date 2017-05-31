@@ -3,9 +3,7 @@ import random
 import re
 import sys
 from htmlentitydefs import name2codepoint as n2c
-from datetime import datetime
 import tweepy
-import markov
 from local_settings import *
 
 class TwitterAPI:
@@ -89,36 +87,17 @@ if __name__ == '__main__':
         if len(source_tweets) == 0:
             print 'Error fetching tweets from Twitter. Aborting.'
             sys.exit()
-        mine = markov.MarkovChainer(ORDER)
-        print random.choice(source_tweets)
-        for tweet in source_tweets:
-            if re.search('([\.\!\?\"\']$)', tweet):
-                pass
-            else:
-                tweet += '.'
-            mine.add_text(tweet)
 
-        for x in range(0, 10):
-            ebook_tweet = mine.generate_sentence()
+        ebook_tweet = random.choice(source_tweets)
 
         rando = random.randint(0, 10)
         if rando == 1:
             ebook_tweet = ebook_tweet.upper()
 
-        #throw out tweets that match anything from the source account.
-        if ebook_tweet != None and len(ebook_tweet) < 110:
-            for tweet in source_tweets:
-                if ebook_tweet[:-1] not in tweet:
-                    continue
-                else:
-                    print 'TOO SIMILAR: ' + ebook_tweet
-                    sys.exit()
-
+        if ebook_tweet != None and len(ebook_tweet) < 140:
             if not DEBUG:
                 twitter.tweet(ebook_tweet)
-
             print 'Tweeted \'' + ebook_tweet + '\''
-
         elif ebook_tweet is None:
             print 'Tweet is empty, sorry.'
         else:
