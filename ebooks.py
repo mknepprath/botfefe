@@ -90,6 +90,7 @@ if __name__ == '__main__':
             print 'Error fetching tweets from Twitter. Aborting.'
             sys.exit()
         mine = markov.MarkovChainer(ORDER)
+        print random.choice(source_tweets)
         for tweet in source_tweets:
             print tweet
             if re.search('([\.\!\?\"\']$)', tweet):
