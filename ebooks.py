@@ -92,7 +92,6 @@ if __name__ == '__main__':
         mine = markov.MarkovChainer(ORDER)
         print random.choice(source_tweets)
         for tweet in source_tweets:
-            print tweet
             if re.search('([\.\!\?\"\']$)', tweet):
                 pass
             else:
