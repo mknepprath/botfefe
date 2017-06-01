@@ -112,7 +112,7 @@ if __name__ == '__main__':
             sys.exit()
         else:
             random.shuffle(word)
-            if random.randint(0, 1) = 1:
+            if random.randint(0, 1) == 1:
                 tweet_words[tweet_length - 1] = ''.join(word) + 'fefe'
             else:
                 tweet_words[tweet_length - 1] = ''.join(word)
