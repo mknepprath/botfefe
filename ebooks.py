@@ -76,7 +76,7 @@ if __name__ == '__main__':
         guess = 0
 
     if guess == 0:
-        #gets tweets
+        # gets tweets
         source_tweets = []
         user = SOURCE_ACCOUNT
         max_id = None
@@ -105,9 +105,10 @@ if __name__ == '__main__':
         if len(word) > 5:
             random.shuffle(word)
             print word[:3]
-            print random.shuffle(word[3:])
+            print word[3:]
             tweet_words[tweet_length - 1] = ''.join(word[:3]) + random.shuffle(''.join(word[3:]))
         elif len(word) < 4:
+            # remove a letter and add fefe
             print 'Shuffled word too short. Aborting.'
             sys.exit()
         else:
@@ -134,4 +135,4 @@ if __name__ == '__main__':
         else:
             print 'TOO LONG: ' + tweet
     else:
-        print str(guess) + ' No, sorry, not this time.' #message if the random number fails.
+        print str(guess) + ' No, sorry, not this time.' # message if the random number fails.
