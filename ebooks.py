@@ -111,7 +111,7 @@ if __name__ == '__main__':
             print word
             print ''.join(word[:3])
             print ''.join(word[3:])
-            partial = ''.join(word[3:])
+            partial = word[3:]
             random.shuffle(partial)
             tweet_words[tweet_length - 1] = ''.join(word[:3]) + ''.join(partial)
         elif len(word) < 4:
