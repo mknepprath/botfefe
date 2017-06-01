@@ -111,7 +111,9 @@ if __name__ == '__main__':
             print word
             print ''.join(word[:3])
             print ''.join(word[3:])
-            tweet_words[tweet_length - 1] = ''.join(word[:3]) + ''.join(random.shuffle(word[3:]))
+            partial = ''.join(word[3:])
+            random.shuffle(partial)
+            tweet_words[tweet_length - 1] = ''.join(word[:3]) + ''.join(partial)
         elif len(word) < 4:
             # remove a letter and add fefe
             print 'Shuffled word too short. Aborting.'
