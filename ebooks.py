@@ -100,17 +100,9 @@ if __name__ == '__main__':
 
         tweet_words = words[:tweet_length]
 
-        print tweet_length
-        print tweet_words
-
         word = list(tweet_words[tweet_length - 1])
 
-        print word
-
         if len(word) > 5:
-            print word
-            print ''.join(word[:3])
-            print ''.join(word[3:])
             partial = word[3:]
             random.shuffle(partial)
             tweet_words[tweet_length - 1] = ''.join(word[:3]) + ''.join(partial)
@@ -120,14 +112,12 @@ if __name__ == '__main__':
             sys.exit()
         else:
             random.shuffle(word)
-            tweet_words[tweet_length - 1] = ''.join(word)
-
+            if random.randint(0, 1) = 1:
+                tweet_words[tweet_length - 1] = ''.join(word) + 'fefe'
+            else:
+                tweet_words[tweet_length - 1] = ''.join(word)
 
         tweet = ' '.join(tweet_words)
-
-        print source_tweet
-        print tweet_length
-        print tweet
 
         rando = random.randint(0, 20)
         if rando == 1:
