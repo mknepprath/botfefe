@@ -106,7 +106,7 @@ if __name__ == '__main__':
             random.shuffle(word)
             print word[:3]
             print random.shuffle(word[3:])
-            tweet_words[tweet_length - 1] = ''.join(word[:3]) + ''.join(random.shuffle(word[3:]))
+            tweet_words[tweet_length - 1] = ''.join(word[:3]) + random.shuffle(''.join(word[3:]))
         elif len(word) < 4:
             print 'Shuffled word too short. Aborting.'
             sys.exit()
