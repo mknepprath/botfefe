@@ -94,7 +94,7 @@ if __name__ == '__main__':
         tweet_length = 0
 
         if len(words) > 3:
-            tweet_length = random.randint(3, len(words))
+            tweet_length = random.randint(3, min(len(words), 9))
         else:
             tweet_length = len(words)
 
