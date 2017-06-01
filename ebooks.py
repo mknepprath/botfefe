@@ -101,8 +101,13 @@ if __name__ == '__main__':
         tweet_words = words[:tweet_length]
 
         word = list(tweet_words[tweet_length - 1])
-        random.shuffle(word)
-        tweet_words[tweet_length - 1] = ''.join(word)
+
+        if len(word) > 5:
+            random.shuffle(word)
+            tweet_words[tweet_length - 1] = ''.join(word[:3]) + ''.join(random.shuffle(word[3]))
+        else:
+            random.shuffle(word)
+            tweet_words[tweet_length - 1] = ''.join(word)
 
 
         tweet = ' '.join(tweet_words)
@@ -111,7 +116,7 @@ if __name__ == '__main__':
         print tweet_length
         print tweet
 
-        rando = random.randint(0, 10)
+        rando = random.randint(0, 20)
         if rando == 1:
             tweet = tweet.upper()
 
