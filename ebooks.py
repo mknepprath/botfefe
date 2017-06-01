@@ -102,6 +102,10 @@ if __name__ == '__main__':
 
         word = list(tweet_words[tweet_length - 1])
 
+        print tweet_length
+        print tweet_words
+        print word
+
         if len(word) > 5:
             random.shuffle(word)
             print word
